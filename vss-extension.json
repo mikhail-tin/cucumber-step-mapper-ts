@@ -1,0 +1,42 @@
+{
+    "manifestVersion": 1,
+    "id": "cucumber-mapper",
+    "version": "0.0.1",
+    "name": "cucumber-mapper",
+    "description": "map step and step definition",
+    "publisher": "mikhailtuvykin",
+    "public": true,
+    "tags": [
+        "Sample"
+    ],
+    "categories": [
+        "Developer samples"
+    ],
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "build-explorer-hub",
+            "type": "ms.vss-web.hub",
+            "targets": [
+                ".build-hub-group"
+            ],
+            "properties": {
+                "name": "Explorer",
+                "uri": "/_build",
+                "order": 22
+            }
+        }
+    ],
+    "contributes": {
+        "commands": [
+        {
+            "key": "ctrl+g",
+            "command": "extension.goToDef",
+            "title": "Go to step definition"
+        }]
+    }
+}
