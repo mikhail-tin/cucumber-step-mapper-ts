@@ -49,7 +49,8 @@ export function activate(context: vscode.ExtensionContext) {
         let document = await vscode.workspace.openTextDocument(result.file);
         let textEditor = await vscode.window.showTextDocument(document);
         let position = new vscode.Position(result.line, 0);
-        let range = new vscode.Range(position, position);
+        let position2 = new vscode.Position(result.line+1, 0);
+        let range = new vscode.Range(position, position2);
         await textEditor.revealRange(range);
         vscode.window.setStatusBarMessage('Go to step definition: ' + step);
     });
