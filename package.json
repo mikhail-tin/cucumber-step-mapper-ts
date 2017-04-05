@@ -4,6 +4,11 @@
     "description": "map step and step definition",
     "version": "0.0.1",
     "publisher": "Mikhail-tin",
+    "license": "ICS",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:mikhail-tin/cucumber-step-mapper-ts.git"
+    },
     "engines": {
         "vscode": "^1.10.0"
     },
@@ -17,10 +22,15 @@
     "contributes": {
         "commands": [
         {
-            "key": "ctrl+g",
             "command": "extension.goToDef",
             "title": "Go to step definition"
-        }]
+        }],
+         "keybindings": [
+            {
+                "command": "extension.goToDef",
+                "key": "ctrl+f1"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
