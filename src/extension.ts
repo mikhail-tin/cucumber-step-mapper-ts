@@ -4,41 +4,11 @@ const fs = require('fs');
 const path = require('path');
 
 export function activate(context: vscode.ExtensionContext) {
-    let steps: IMember[] = [];
-    let listOfFiles = [];
+    let steps: IStepDef[] = [];
 
     let fillStore = () => {
-        steps = [];
-        listOfFiles = [];
-        let getAllFiles = function(myPath) {
-            if( fs.existsSync(myPath) ) {
-                fs.readdirSync(myPath).forEach(function(file,index) {
-                    let curPath = myPath + "/" + file;
-                    if(fs.lstatSync(curPath).isDirectory()) { 
-                        getAllFiles(curPath);
-                    } else { 
-                        if( path.extname(curPath) == '.ts'){
-                            listOfFiles.push(curPath);
-                        }
-                    }
-                });
-            }
-        };
-    
-        getAllFiles(path.join(vscode.workspace.rootPath, 'src'));
-
-        listOfFiles.forEach((file)=>{
-            let lines = fs.readFileSync(file).toString().split("\n");
-            lines.forEach((i, line)=>{
-                if (i.indexOf('(/^') >= 0) {
-                    steps.push({
-                        regex: i.substring(i.indexOf('(/^')+3, i.indexOf('$/,')),
-                        file: file,
-                        line: line
-                    });
-                }
-            })
-        });
+        let listOfFiles = GetListOfFiles(path.join(vscode.workspace.rootPath, 'src'));
+        steps = GetStepDef(listOfFiles);
     }
 
     fillStore();
@@ -52,20 +22,52 @@ export function activate(context: vscode.ExtensionContext) {
         let position2 = new vscode.Position(result.line+1, 0);
         let range = new vscode.Range(position, position2);
         await textEditor.revealRange(range, vscode.TextEditorRevealType.InCenterIfOutsideViewport);
-        vscode.window.setStatusBarMessage('Go to step definition: ' + step);
     });
 
-    let updateStore = vscode.workspace.onDidSaveTextDocument((textDocument: vscode.TextDocument) => {
-        fillStore();
-    });
+    let updateStore = vscode.workspace.onDidSaveTextDocument((textDocument: vscode.TextDocument) =>  fillStore());
 
     context.subscriptions.push(goToDef);
-
     context.subscriptions.push(updateStore)
 }
 
-export interface IMember {
+export interface IStepDef {
     regex: string;
     file: string;
     line: number;
+}
+
+export function GetListOfFiles(myPath) {
+    let result = [];
+    let getAllFiles = function(myPath) {
+            if( fs.existsSync(myPath) ) {
+                fs.readdirSync(myPath).forEach(function(file,index) {
+                    let curPath = myPath + "/" + file;
+                    if(fs.lstatSync(curPath).isDirectory()) { 
+                        getAllFiles(curPath);
+                    } else { 
+                        if( path.extname(curPath) == '.ts'){
+                            result.push(curPath);
+                        }
+                    }
+                });
+            }
+        };
+    return result;
+}
+
+export function GetStepDef(files: string[]) {
+    let result: IStepDef[] = [];
+    files.forEach((file) => {
+        let lines = fs.readFileSync(file).toString().split("\n");
+        lines.forEach((i, line)=>{
+            if (i.indexOf('(/^') >= 0) {
+                result.push({
+                    regex: i.substring(i.indexOf('(/^')+3, i.indexOf('$/,')),
+                    file: file,
+                    line: line
+                });
+            }
+        });
+    });
+    return result;
 }
