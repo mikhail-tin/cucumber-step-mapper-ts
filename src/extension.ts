@@ -6,8 +6,10 @@ const path = require('path');
 export function activate(context: vscode.ExtensionContext) {
     let steps: IStepDef[] = [];
 
-    let fillStore = () => {
-        let listOfFiles = GetListOfFiles(path.join(vscode.workspace.rootPath, 'src'));
+    let pathToSrc = getConfiguration();
+
+    let fillStore = async () => {
+        let listOfFiles = GetListOfFiles(path.join(vscode.workspace.rootPath, pathToSrc));
         steps = GetStepDef(listOfFiles);
     }
 
@@ -70,4 +72,15 @@ export function GetStepDef(files: string[]) {
         });
     });
     return result;
+}
+
+export function getConfiguration(): string {
+    let srcPath = String(vscode.workspace.getConfiguration('cucumber-step-mapper').get('srcTsPath'));
+    if (srcPath === 'undefined') {
+        return 'src'
+    }
+    if (!(srcPath.endsWith("/") || srcPath.endsWith("\\"))) {
+        srcPath += "/";
+    }
+    return srcPath;
 }

@@ -18,6 +18,16 @@
     "activationEvents": [
         "onCommand:extension.goToDef"
     ],
+    "configuration": {
+      "title": "Cucumber step mapper",
+      "properties": {
+        "cucumber-step-mapper.srcTsPath": {
+          "type": "string",
+          "default": "src",
+          "description": "Relative path to step definition files, 'src' as default"
+        }
+      }
+    },
     "main": "./out/src/extension",
     "contributes": {
         "commands": [
