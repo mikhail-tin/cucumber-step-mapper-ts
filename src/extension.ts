@@ -54,6 +54,7 @@ export function GetListOfFiles(myPath) {
                 });
             }
         };
+    getAllFiles(myPath);
     return result;
 }
 
@@ -76,9 +77,6 @@ export function GetStepDef(files: string[]) {
 
 export function getConfiguration(): string {
     let srcPath = String(vscode.workspace.getConfiguration('cucumber-step-mapper').get('srcTsPath'));
-    if (srcPath === 'undefined') {
-        return 'src'
-    }
     if (!(srcPath.endsWith("/") || srcPath.endsWith("\\"))) {
         srcPath += "/";
     }
