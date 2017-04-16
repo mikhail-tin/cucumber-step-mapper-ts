@@ -3,18 +3,16 @@ const path = require('path');
 
 export class ConfigManager {
     private _typeOfSrc: string;
-    private _pathToSrc;
+    private _pathToSrc: string;
 
-    constructor() {}
-
-    public get typeOfSrc() {
+    public get typeOfSrc(): string {
         if (!this._typeOfSrc) {
             this._typeOfSrc = String(vscode.workspace.getConfiguration('cucumber-step-mapper').get('typeOfSrc'));
         }
         return this._typeOfSrc;
     }
 
-    public get pathToSrc() {
+    public get pathToSrc(): string {
         if (!this._pathToSrc) {
             this._pathToSrc = this.getPathToSrc();
         }

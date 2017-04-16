@@ -7,9 +7,7 @@ export function activate(context: vscode.ExtensionContext) {
     let steps: IStepDef[] = [];
     let config = new ConfigManager();
 
-    let fillStore = async () => {
-        steps = GetStepDef(GetListOfFiles(config.pathToSrc));
-    }
+    let fillStore = () => steps = GetStepDef(GetListOfFiles(config.pathToSrc));
 
     fillStore();
 
