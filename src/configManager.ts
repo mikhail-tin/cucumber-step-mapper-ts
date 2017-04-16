@@ -22,7 +22,7 @@ export class ConfigManager {
     }
 
     private getPathToSrc(): string {
-        let srcPath = String(vscode.workspace.getConfiguration('cucumber-step-mapper').get('srcTsPath'));
+        let srcPath = String(vscode.workspace.getConfiguration('cucumber-step-mapper').get('srcPath'));
         if (!(srcPath.endsWith("/") || srcPath.endsWith("\\"))) {
             srcPath += "/";
         }

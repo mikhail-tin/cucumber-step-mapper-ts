@@ -23,10 +23,15 @@
         "configuration": {
             "title": "Cucumber step mapper",
             "properties": {
-                "cucumber-step-mapper.srcTsPath": {
+                "cucumber-step-mapper.srcPath": {
                     "type": "string",
                     "default": "src",
-                    "description": "Relative path to step definition files, 'src' as default"
+                    "description": "Relative path to step definition files, 'src' as default."
+                },
+                "cucumber-step-mapper.typeOfSrc": {
+                    "type": "string",
+                    "default": "typescript",
+                    "description": "Type of a project(javascript or typescript)."
                 }
             }
         },
@@ -37,20 +42,7 @@
          "keybindings": [{
                 "command": "extension.goToDef",
                 "key": "ctrl+f1"
-        }],
-        "menus": {
-            "editor/title": [{
-                "when": "resourceLangId == markdown",
-                "command": "markdown.showPreview",
-                "alt": "markdown.showPreviewToSide",
-                "group": "navigation"
-            },
-            {
-                "when": "editorHasSelection",
-                "command": "extension.Command",
-                "group": "myGroup@1"
-            }]
-        }
+        }]
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
