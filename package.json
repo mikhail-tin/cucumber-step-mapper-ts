@@ -33,13 +33,24 @@
         "commands": [{
                 "command": "extension.goToDef",
                 "title": "Go to step definition"
-            }
-        ],
+        }],
          "keybindings": [{
                 "command": "extension.goToDef",
                 "key": "ctrl+f1"
-            }
-        ]
+        }],
+        "menus": {
+            "editor/title": [{
+                "when": "resourceLangId == markdown",
+                "command": "markdown.showPreview",
+                "alt": "markdown.showPreviewToSide",
+                "group": "navigation"
+            },
+            {
+                "when": "editorHasSelection",
+                "command": "extension.Command",
+                "group": "myGroup@1"
+            }]
+        }
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
