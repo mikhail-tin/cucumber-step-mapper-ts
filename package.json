@@ -4,7 +4,7 @@
     "description": "map step and step definition",
     "version": "0.0.1",
     "publisher": "Mikhail-tin",
-    "license": "ICS",
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "git@github.com:mikhail-tin/cucumber-step-mapper-ts.git"
