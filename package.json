@@ -18,29 +18,31 @@
     "activationEvents": [
         "onCommand:extension.goToDef"
     ],
-    "configuration": {
-      "title": "Cucumber step mapper",
-      "properties": {
-        "cucumber-step-mapper.srcTsPath": {
-          "type": "string",
-          "default": "src",
-          "description": "Relative path to step definition files, 'src' as default"
-        }
-      }
-    },
     "main": "./out/src/extension",
     "contributes": {
-        "commands": [
-        {
-            "command": "extension.goToDef",
-            "title": "Go to step definition"
+        "configuration": {
+            "title": "Cucumber step mapper",
+            "properties": {
+                "cucumber-step-mapper.srcPath": {
+                    "type": "string",
+                    "default": "src",
+                    "description": "Relative path to step definition files, 'src' as default."
+                },
+                "cucumber-step-mapper.typeOfSrc": {
+                    "type": "string",
+                    "default": "typescript",
+                    "description": "Type of a project(javascript or typescript)."
+                }
+            }
+        },
+        "commands": [{
+                "command": "extension.goToDef",
+                "title": "Go to step definition"
         }],
-         "keybindings": [
-            {
+         "keybindings": [{
                 "command": "extension.goToDef",
                 "key": "ctrl+f1"
-            }
-        ]
+        }]
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
