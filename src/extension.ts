@@ -16,11 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
         let result = steps.find((elem) => { return step.search(elem.regex) >= 0; });
         let document = await vscode.workspace.openTextDocument(result.file);
         let textEditor = await vscode.window.showTextDocument(document);
-
-        let position = new vscode.Position(result.line, 0); // TODO: it is work unexpected
-        let position2 = new vscode.Position(result.line+1, 0);
-        let range = new vscode.Range(position, position2);
-        await textEditor.revealRange(range, vscode.TextEditorRevealType.InCenterIfOutsideViewport);
+        await vscode.commands.executeCommand('revealLine', {lineNumber: result.line, at: 'top'});
     });
 
     let updateStore = vscode.workspace.onDidSaveTextDocument((textDocument: vscode.TextDocument) =>  {
