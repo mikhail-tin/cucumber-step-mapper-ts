@@ -1,9 +1,10 @@
 'use strict';
-import * as vscode from 'vscode';
+import {ExtensionContext, commands, window, workspace, TextDocument} from 'vscode';
+import {TextEditor, Range, Position, TextEditorRevealType, Selection} from 'vscode';
 import {GetListOfFiles, GetStepDef, IStepDef} from './fs';
 import {ConfigManager} from './configManager'
 
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: ExtensionContext) {
     let steps: IStepDef[] = [];
     let config = new ConfigManager();
 
@@ -11,15 +12,15 @@ export function activate(context: vscode.ExtensionContext) {
 
     fillStore();
 
-    let goToDef = vscode.commands.registerCommand('extension.goToDef', async () => {
-        let step = vscode.window.activeTextEditor.document.lineAt(vscode.window.activeTextEditor.selection.active.line).text.trim();
+    let goToDef = commands.registerCommand('extension.goToDef', async () => {
+        let step = window.activeTextEditor.document.lineAt(window.activeTextEditor.selection.active.line).text.trim();
         let result = steps.find((elem) => { return step.search(elem.regex) >= 0; });
-        let document = await vscode.workspace.openTextDocument(result.file);
-        let textEditor = await vscode.window.showTextDocument(document);
-        await vscode.commands.executeCommand('revealLine', {lineNumber: result.line, at: 'top'});
+        let document = await workspace.openTextDocument(result.file);
+        let textEditor = await window.showTextDocument(document);
+        await scrollToNewPositon(textEditor, result.line);
     });
 
-    let updateStore = vscode.workspace.onDidSaveTextDocument((textDocument: vscode.TextDocument) =>  {
+    let updateStore = workspace.onDidSaveTextDocument((textDocument: TextDocument) =>  {
         if (textDocument.languageId == config.typeOfSrc) {
             fillStore();
         }
@@ -27,4 +28,13 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(goToDef);
     context.subscriptions.push(updateStore)
+}
+
+let scrollToNewPositon = async (textEditor: TextEditor, line: number): Promise<void> => {
+    let position = new Position(line, 0);
+    let range = new Range(position, position);
+    await textEditor.revealRange(range, TextEditorRevealType.InCenterIfOutsideViewport);
+    let newPosition = position.with(position.line, 0);
+    let newSelection = new Selection(newPosition, newPosition);
+    window.activeTextEditor.selection = newSelection;
 }
