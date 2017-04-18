@@ -3,16 +3,17 @@
     "displayName": "Cucumber-mapper",
     "description": "map step and step definition",
     "version": "0.0.1",
-    "publisher": "Mikhail-tin",
-    "license": "ICS",
+    "publisher": "mikhail-tin",
+    "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git@github.com:mikhail-tin/cucumber-step-mapper-ts.git"
+        "url": "https://github.com/mikhail-tin/cucumber-step-mapper-ts.git"
     },
     "engines": {
         "vscode": "^1.10.0"
     },
     "categories": [
+        "Languages",
         "Other"
     ],
     "activationEvents": [
@@ -53,8 +54,6 @@
     "devDependencies": {
         "typescript": "^2.0.3",
         "vscode": "^1.0.0",
-        "mocha": "^2.3.3",
-        "@types/node": "^6.0.40",
-        "@types/mocha": "^2.2.32"
+        "@types/node": "^6.0.40"
     }
 }
