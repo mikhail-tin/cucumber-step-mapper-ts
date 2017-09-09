@@ -14,6 +14,8 @@ Simple way for find definition for step writen in gherkin.
 ## Changelog
 * v0.0.1
 	* publishing
+* v0.0.3
+	* bugfix
 
 ## License
 
