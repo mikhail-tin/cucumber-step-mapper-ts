@@ -2,7 +2,7 @@
     "name": "cucumber-mapper",
     "displayName": "Cucumber-mapper",
     "description": "map step and step definition",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "mikhail-tin",
     "license": "MIT",
     "repository": {
