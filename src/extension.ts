@@ -7,13 +7,15 @@ import {ConfigManager} from './configManager'
 export function activate(context: ExtensionContext) {
     let steps: IStepDef[] = [];
     let config = new ConfigManager();
-
     let fillStore = () => steps = GetStepDef(GetListOfFiles(config.pathToSrc));
 
     fillStore();
 
     let goToDef = commands.registerCommand('extension.goToDef', async () => {
         let step = window.activeTextEditor.document.lineAt(window.activeTextEditor.selection.active.line).text.trim();
+        if (step.indexOf("en ") < 0) {
+            return;
+        }
         let result = steps.find((elem) => { return step.search(elem.regex) >= 0; });
         let document = await workspace.openTextDocument(result.file);
         let textEditor = await window.showTextDocument(document);
