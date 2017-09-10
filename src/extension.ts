@@ -17,6 +17,10 @@ export function activate(context: ExtensionContext) {
             return;
         }
         let result = steps.find((elem) => { return step.search(elem.regex) >= 0; });
+        if (!result) {
+            window.setStatusBarMessage(`Cucumber-mapper: Step "${step}" was not found.`, 5000);
+            return;
+        }
         let document = await workspace.openTextDocument(result.file);
         let textEditor = await window.showTextDocument(document);
         await scrollToNewPositon(textEditor, result.line);
