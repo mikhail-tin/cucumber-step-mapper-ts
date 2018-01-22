@@ -1,9 +1,10 @@
 {
     "name": "cucumber-mapper",
     "displayName": "Cucumber-mapper",
-    "description": "map step and step definition",
-    "version": "0.0.1",
+    "description": "Map step and step definition",
+    "version": "0.0.4",
     "publisher": "mikhail-tin",
+    "icon": "icon.png",
     "license": "MIT",
     "repository": {
         "type": "git",
