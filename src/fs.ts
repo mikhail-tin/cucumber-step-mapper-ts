@@ -10,23 +10,26 @@ const stEnd = {
     dq: {st: "en(\"", end: "\","}
 };
 
-export function GetListOfFiles(myPath) {
+export function GetListOfFiles(myPaths) {
     let result = [];
     let getAllFiles = function(myPath) {
-            if( fs.existsSync(myPath) ) {
-                fs.readdirSync(myPath).forEach(function(file,index) {
-                    let curPath = myPath + "/" + file;
-                    if(fs.lstatSync(curPath).isDirectory()) { 
-                        getAllFiles(curPath);
-                    } else { 
-                        if (path.extname(curPath) == '.ts'){
-                            result.push(curPath);
-                        }
+        if( fs.existsSync(myPath) ) {
+            fs.readdirSync(myPath).forEach(function(file,index) {
+                let curPath = myPath + "/" + file;
+                if(fs.lstatSync(curPath).isDirectory()) { 
+                    getAllFiles(curPath);
+                } else { 
+                    if (path.extname(curPath) == '.ts'){
+                        result.push(curPath);
                     }
-                });
-            }
-        };
-    getAllFiles(myPath);
+                }
+            });
+        }
+    };
+
+    for(let x = 0; x <= myPaths.length; x++){
+        getAllFiles(myPaths[x]);
+    }
     return result;
 }
 
