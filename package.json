@@ -2,7 +2,7 @@
     "name": "cucumber-mapper",
     "displayName": "Cucumber-mapper",
     "description": "Map step and step definition",
-    "version": "0.0.4",
+    "version": "0.1.0",
     "publisher": "mikhail-tin",
     "icon": "icon.png",
     "license": "MIT",
@@ -26,9 +26,9 @@
             "title": "Cucumber step mapper",
             "properties": {
                 "cucumber-step-mapper.srcPath": {
-                    "type": "string",
+                    "type": "string || array",
                     "default": "src",
-                    "description": "Relative path to step definition files, 'src' as default."
+                    "description": "Relative path to step definition files, 'src' as default. [\"src\", \"srcTwo\"] - for multiple source paths."
                 },
                 "cucumber-step-mapper.typeOfSrc": {
                     "type": "string",

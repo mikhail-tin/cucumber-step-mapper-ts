@@ -1,4 +1,4 @@
 # This is cucumber extension for fast find step definition (only TypeScript support).
 How use:
-1. Click on your step in feature file 
-2. run your command from the command palette by pressing (`Ctrl+Shift+P` or `Cmd+Shift+P` on Mac) and typing `Hello World`
+1. Set cursor on the line in feature file.
+2. Press Ctrl+F1 or Ctrl+Shift+P and enter: Go to step definition 
