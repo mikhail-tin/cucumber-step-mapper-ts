@@ -32,7 +32,7 @@ export function activate(context: ExtensionContext) {
     context.subscriptions.push(updateStore)
 }
 
-let isStep = (step) => { return step.indexOf("hen ") >= 0 || step.indexOf("And ") >= 0 || step.indexOf("But ") >= 0 };
+let isStep = (step) => { return step.indexOf("en ") >= 0 || step.indexOf("And ") >= 0 || step.indexOf("But ") >= 0 };
 let extractStep = (step) => { return step.replace('Given', '').replace('When', '').replace('Then', '').replace('And', '').replace('But', '').trim();};
 let sendMsgToStatusBar = (msg) => {window.setStatusBarMessage(`Cucumber-mapper: ${msg}.`, 5000);};
 let scrollToNewPositon = async (result: IStepDef): Promise<void> => {
