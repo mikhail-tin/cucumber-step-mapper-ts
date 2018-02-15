@@ -1,16 +1,18 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
-import {IStepDef} from './interfaces';
-export {IStepDef};
 
-const stEnd = {
-    reg: {st: "en(/^", end: "$/"},
-    q: {st: "en('", end: "',"},
-    dq: {st: "en(\"", end: "\","}
-};
+export interface IStepDef {
+    regex: string;
+    file: string;
+    line: number;
+}
 
-export function GetListOfFiles(myPaths) {
+const v1 = {st: "en(/^", end: "$/"},
+      v2 = {st: "en('", end: "',"},
+      v3 = {st: "en(\"", end: "\","};
+
+export function GetListOfFiles(myPaths, ext) {
     let result = [];
     let getAllFiles = function(myPath) {
         if( fs.existsSync(myPath) ) {
@@ -19,7 +21,7 @@ export function GetListOfFiles(myPaths) {
                 if(fs.lstatSync(curPath).isDirectory()) { 
                     getAllFiles(curPath);
                 } else { 
-                    if (path.extname(curPath) == '.ts'){
+                    if (path.extname(curPath) == ext){
                         result.push(curPath);
                     }
                 }
@@ -47,9 +49,9 @@ export function GetStepDef(files: string[]) {
     return result;
 }
 
-export function getStepFromString(str: string) {
+function getStepFromString(str: string) {
     return (str.indexOf("Given") >= 0 || str.indexOf("When") >= 0 || str.indexOf("Then") >= 0) &&
-    ((str.indexOf(stEnd.reg.st) >= 0 && str.substring(str.indexOf(stEnd.reg.st) + stEnd.reg.st.length, str.indexOf(stEnd.reg.end)))
-    || (str.indexOf(stEnd.dq.st) >= 0  && str.substring(str.indexOf(stEnd.dq.st) + stEnd.dq.st.length, str.indexOf(stEnd.dq.end)))
-    || (str.indexOf(stEnd.q.st) >= 0 && str.substring(str.indexOf(stEnd.q.st) + stEnd.q.st.length, str.indexOf(stEnd.q.end))));
+        ((str.indexOf(v1.st) >= 0 && str.substring(str.indexOf(v1.st) + v1.st.length-1, str.indexOf(v1.end)+1)) || 
+         (str.indexOf(v3.st) >= 0 && str.substring(str.indexOf(v3.st) + v3.st.length, str.indexOf(v3.end))) || 
+         (str.indexOf(v2.st) >= 0 && str.substring(str.indexOf(v2.st) + v2.st.length, str.indexOf(v2.end))));
 }
