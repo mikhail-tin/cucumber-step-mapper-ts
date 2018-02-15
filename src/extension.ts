@@ -12,21 +12,18 @@ export function activate(context: ExtensionContext) {
 
     let goToDef = commands.registerCommand('extension.goToDef', async () => {
         let step = window.activeTextEditor.document.lineAt(window.activeTextEditor.selection.active.line).text.trim();
-        if (step.indexOf("hen ") < 0 && step.indexOf("And") < 0 && step.indexOf("But") < 0) {
-            window.setStatusBarMessage(`Cucumber-mapper: "${step}" doesn't look like a step.`, 5000);
+        if (!isStep(step)) {
+            sendMsgToStatusBar(`Cucumber-mapper: "${step}" doesn't look like a step.`);
             return;
         }
-        step = step.replace('Given', '').replace('When', '').replace('Then', '').replace('And', '').replace('But', '').trim();
-        let result = steps.find((elem) => { 
-            return step.search(elem.regex) >= 0; 
-        });
+        step = extractStep(step);
+        let result = steps.find((elem) => { return step.search(elem.regex) >= 0; });
         if (!result) {
-            window.setStatusBarMessage(`Cucumber-mapper: Step "${step}" was not found.`, 5000);
+            sendMsgToStatusBar(`Cucumber-mapper: Step "${step}" was not found.`);
             return;
         }
-        let document = await workspace.openTextDocument(result.file);
-        let textEditor = await window.showTextDocument(document);
-        await scrollToNewPositon(textEditor, result.line);
+
+        await scrollToNewPositon(result);
     });
 
     let updateStore = workspace.onDidSaveTextDocument((td: TextDocument) => (td.languageId == config.typeOfSrc) && fillStore() );
@@ -35,8 +32,13 @@ export function activate(context: ExtensionContext) {
     context.subscriptions.push(updateStore)
 }
 
-let scrollToNewPositon = async (textEditor: TextEditor, line: number): Promise<void> => {
-    let pos = new Position(line, 0);
+let isStep = (step) => { return step.indexOf("hen ") >= 0 || step.indexOf("And ") >= 0 || step.indexOf("But ") >= 0 };
+let extractStep = (step) => { return step.replace('Given', '').replace('When', '').replace('Then', '').replace('And', '').replace('But', '').trim();};
+let sendMsgToStatusBar = (msg) => {window.setStatusBarMessage(`Cucumber-mapper: ${msg}.`, 5000);};
+let scrollToNewPositon = async (result: IStepDef): Promise<void> => {
+    let document = await workspace.openTextDocument(result.file);
+    let textEditor = await window.showTextDocument(document);
+    let pos = new Position(result.line, 0);
     await textEditor.revealRange(new Range(pos, pos), TextEditorRevealType.InCenterIfOutsideViewport);
     window.activeTextEditor.selection = new Selection(pos.with(pos.line, 0), pos.with(pos.line, 0));
-}
+};
