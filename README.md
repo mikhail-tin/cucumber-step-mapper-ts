@@ -1,6 +1,6 @@
 # vscode-cucumber-step-mapper
 Simple way for find definition for step writen in gherkin.
-Supported: TypeScript and JavaScript.
+Supported: Ruby
 
 ## Usage
 1. Set cursor on the line in feature file.
@@ -8,7 +8,7 @@ Supported: TypeScript and JavaScript.
 
 ## Settings
 * cucumber-step-mapper.srcPath - Relative path to step definition files, 'src' as default.
-* cucumber-step-mapper.typeOfSrc - Type of a project (javascript or typescript), 'typescript' as default.
+* cucumber-step-mapper.typeOfSrc - ruby
                 
 ## Changelog
 * v0.0.1
@@ -23,3 +23,6 @@ Supported: TypeScript and JavaScript.
 ## License
 
 MIT © Mikhail Tin
+
+
+vsce package

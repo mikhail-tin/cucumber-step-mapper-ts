@@ -8,9 +8,9 @@ export interface IStepDef {
     line: number;
 }
 
-const v1 = {st: "en(/^", end: "$/"},
-      v2 = {st: "en('", end: "',"},
-      v3 = {st: "en(\"", end: "\","};
+const v1 = {st: "en(/^", end: "$/)"},
+      v2 = {st: "en('", end: "')"},
+      v3 = {st: "en(\"", end: "\")"};
 
 export function GetListOfFiles(myPaths, ext) {
     let result = [];

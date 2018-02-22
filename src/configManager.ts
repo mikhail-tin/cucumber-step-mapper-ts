@@ -18,8 +18,7 @@ export class ConfigManager {
 
     public get fileExtension(): string {
         if(!this._fileExtension){
-            if (this.typeOfSrc == 'javascript') {this._fileExtension = '.js';} 
-            else { this._fileExtension = '.ts';}
+            this._fileExtension = '.rb';
         }
         return this._fileExtension;
     }

@@ -1,6 +1,6 @@
 {
-    "name": "cucumber-mapper",
-    "displayName": "Cucumber-mapper",
+    "name": "cucumber-mapper-for-ruby",
+    "displayName": "Cucumber-mapper-for-ruby",
     "description": "Map step and step definition",
     "version": "0.1.0",
     "publisher": "mikhail-tin",
@@ -32,8 +32,8 @@
                 },
                 "cucumber-step-mapper.typeOfSrc": {
                     "type": "string",
-                    "default": "typescript",
-                    "description": "Type of a project(javascript or typescript)."
+                    "default": "ruby",
+                    "description": "Type of a project(ruby)."
                 }
             }
         },
