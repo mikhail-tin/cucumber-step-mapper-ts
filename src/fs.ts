@@ -42,6 +42,7 @@ export function GetStepDef(files: string[]) {
         lines.forEach((i, line)=>{
             let step = getStepFromString(i);
             if (step) {
+                step = step.replace("{string}", "(.*)").replace("{int}", "([0-9]+)")
                 result.push({ regex: step, file: file, line: line });
             }
         });

@@ -2,7 +2,7 @@
     "name": "cucumber-mapper",
     "displayName": "Cucumber-mapper",
     "description": "Map step and step definition",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "publisher": "mikhail-tin",
     "icon": "icon.png",
     "license": "MIT",
@@ -13,10 +13,7 @@
     "engines": {
         "vscode": "^1.10.0"
     },
-    "categories": [
-        "Languages",
-        "Other"
-    ],
+    "categories": [ "Programming Languages", "Other" ],
     "activationEvents": [
         "onCommand:extension.goToDef"
     ],
